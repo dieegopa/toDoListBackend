@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "start": "docker run -d --name buggregator-server -p 8000:8000 ghcr.io/buggregator/server:latest && ./vendor/bin/sail up -d",
+        "stop": "docker stop buggregator-server && docker rm buggregator-server && ./vendor/bin/sail down"
+    },
+    "devDependencies": {
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0",
+        "vite": "^5.0"
+    }
+}
