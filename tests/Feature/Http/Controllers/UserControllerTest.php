@@ -48,12 +48,6 @@ it('returns user tags', function () {
     /** @var User $user */
     $user = User::factory()->create();
 
-    $this
-        ->postJson('api/v1/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
-
     actingAs($user, 'sanctum')
         ->getJson('api/v1/user/tags')
         ->assertStatus(200)

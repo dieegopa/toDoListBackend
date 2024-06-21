@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,10 @@ Route::prefix('v1')->group(function () {
         Route::prefix('/user')->group(function () {
             Route::get('/', [UserController::class, 'index']);
             Route::get('/tags', [UserController::class, 'indexTags']);
+        });
+
+        Route::prefix('/tags')->group(function () {
+            Route::post('/', [TagController::class, 'store']);
         });
 
         Route::post('/logout', [AuthController::class, 'logout']);

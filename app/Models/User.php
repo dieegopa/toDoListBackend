@@ -6,8 +6,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Tags\HasTags;
+use Spatie\Tags\Tag;
 
 /**
  * @property int $id
@@ -16,6 +18,7 @@ use Spatie\Tags\HasTags;
  * @property string $password
  * @property string|null $remember_token
  * @property Carbon|null $email_verified_at
+ * @property Collection<Tag> $tags
  */
 class User extends Authenticatable
 {
