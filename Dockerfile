@@ -39,6 +39,10 @@ EXPOSE 80
 
 COPY . /var/www/html
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN composer install --no-interaction --optimize-autoloader
+
 RUN rm /usr/local/etc/php-fpm.d/*
 COPY ./docker/php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY ./docker/nginx.conf /etc/nginx/nginx.conf
