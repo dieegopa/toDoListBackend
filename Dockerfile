@@ -1,5 +1,5 @@
 # Usa una imagen oficial de PHP con extensiones necesarias
-FROM php:8.2-fpm-alpine
+FROM --platform=linux/amd64 php:8.2-fpm-alpine
 
 WORKDIR /var/www/html
 
