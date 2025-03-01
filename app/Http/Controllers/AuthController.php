@@ -4,19 +4,35 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\OpenApi\RequestBodies\LoginRequestBody;
+use App\OpenApi\RequestBodies\RegisterRequestBody;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response as HttpCodes;
 
+
+#[OA\Info(version: '0.1', title: 'Todo API')]
 class AuthController extends Controller
 {
     /**
      * @param Request $request
      * @return JsonResponse
      */
+    #[OA\Post(path: '/api/v1/login', summary: 'Login user', tags: ['Auth'])]
+    #[OA\Response(response: '200', description: 'User logged in')]
+    #[OA\RequestBody(
+        description: 'User credentials',
+        required: true,
+        content: [
+            new OA\JsonContent(
+                ref: LoginRequestBody::class,
+            )
+        ]
+    )]
     public function login(Request $request): JsonResponse
     {
         $validation = $request->validate([
@@ -49,6 +65,8 @@ class AuthController extends Controller
      * @param Request $request
      * @return Response
      */
+    #[OA\Post(path: '/api/v1/logout', summary: 'Logout user', tags: ['Auth'])]
+    #[OA\Response(response: '204', description: 'User logged out')]
     public function logout(Request $request): Response
     {
         $request->user()->tokens()->delete();
@@ -59,6 +77,17 @@ class AuthController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
+    #[OA\Post(path: '/api/v1/register', summary: 'Register user', tags: ['Auth'])]
+    #[OA\Response(response: '200', description: 'User registered')]
+    #[OA\RequestBody(
+        description: 'User credentials',
+        required: true,
+        content: [
+            new OA\JsonContent(
+                ref: RegisterRequestBody::class,
+            )
+        ]
+    )]
     public function register(Request $request): JsonResponse
     {
         $validation = $request->validate([

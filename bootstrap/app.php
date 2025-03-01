@@ -1,6 +1,7 @@
 <?php
 
 use App\Middleware\AcceptJsonMiddleware;
+use App\Middleware\RedirectToDocumentation;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,6 +15,7 @@ $app = Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(AcceptJsonMiddleware::class);
+        $middleware->append(RedirectToDocumentation::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

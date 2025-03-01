@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\OpenApi\RequestBodies\TagRequestBody;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use OpenApi\Attributes as OA;
 use Spatie\Tags\Tag;
 
 class TagController extends Controller
@@ -16,6 +18,17 @@ class TagController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
+    #[OA\Post(path: '/api/v1/tags', summary: 'Create a new tag', security: [['bearerAuth' => [],],], tags: ['Tags'])]
+    #[OA\Response(response: '200', description: 'Tag created')]
+    #[OA\RequestBody(
+        description: 'Tag data',
+        required: true,
+        content: [
+            new OA\JsonContent(
+                ref: TagRequestBody::class,
+            )
+        ]
+    )]
     public function store(Request $request): JsonResponse
     {
         $validate = $request->validate([

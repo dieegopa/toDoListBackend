@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\OpenApi\RequestBodies\CreateTaskRequestBody;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use OpenApi\Attributes as OA;
 
 class TaskController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[OA\Get(path: '/api/v1/tasks', summary: 'Get user tasks', security: [['bearerAuth' => [],],], tags: ['Tasks'])]
+    #[OA\Response(response: '200', description: 'User tasks')]
     public function index(Request $request): JsonResponse
     {
         /** @var User $user */
@@ -27,6 +35,21 @@ class TaskController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    #[OA\Post(path: '/api/v1/tasks', summary: 'Create a new task', security: [['bearerAuth' => [],],], tags: ['Tasks'])]
+    #[OA\Response(response: '204', description: 'Task created')]
+    #[OA\RequestBody(
+        description: 'Task data',
+        required: true,
+        content: [
+            new OA\JsonContent(
+                ref: CreateTaskRequestBody::class,
+            )
+        ]
+    )]
     public function store(Request $request): Response
     {
         $request->validate([
@@ -48,6 +71,13 @@ class TaskController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * @param Task $task
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[OA\Get(path: '/api/v1/tasks/{task}', summary: 'Get task', security: [['bearerAuth' => [],],], tags: ['Tasks'])]
+    #[OA\Response(response: '200', description: 'Task data')]
     public function show(Task $task, Request $request): JsonResponse
     {
 
@@ -66,6 +96,22 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+     * @param Task $task
+     * @param Request $request
+     * @return Response|JsonResponse
+     */
+    #[OA\Put(path: '/api/v1/tasks/{task}', summary: 'Update task', security: [['bearerAuth' => [],],], tags: ['Tasks'])]
+    #[OA\Response(response: '204', description: 'Task updated')]
+    #[OA\RequestBody(
+        description: 'Task data',
+        required: true,
+        content: [
+            new OA\JsonContent(
+                ref: CreateTaskRequestBody::class,
+            )
+        ]
+    )]
     public function update(Task $task, Request $request): Response|JsonResponse
     {
         $request->validate([
@@ -89,6 +135,13 @@ class TaskController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * @param Task $task
+     * @param Request $request
+     * @return Response|JsonResponse
+     */
+    #[OA\Delete(path: '/api/v1/tasks/{task}', summary: 'Delete task', security: [['bearerAuth' => [],],], tags: ['Tasks'])]
+    #[OA\Response(response: '204', description: 'Task deleted')]
     public function destroy(Task $task, Request $request): Response|JsonResponse
     {
         /** @var User $user */

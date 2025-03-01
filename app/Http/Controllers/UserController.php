@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use OpenApi\Attributes as OA;
 
 class UserController extends Controller
 {
@@ -13,6 +14,8 @@ class UserController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
+    #[OA\Get(path: '/api/v1/user', summary: 'Get user', security: [['bearerAuth' => [],],], tags: ['User'])]
+    #[OA\Response(response: '200', description: 'User data')]
     public function index(Request $request): JsonResponse
     {
         return response()->json($request->user());
@@ -22,6 +25,8 @@ class UserController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
+    #[OA\Get(path: '/api/v1/user/tags', summary: 'Get user tags', security: [['bearerAuth' => [],],], tags: ['User'])]
+    #[OA\Response(response: '200', description: 'User tags')]
     public function indexTags(Request $request): JsonResponse
     {
         /** @var User $user */

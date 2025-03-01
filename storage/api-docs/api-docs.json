@@ -1,0 +1,352 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Todo API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "operationId": "da2ca4d7a5cdec77b8b45a20373535cb",
+                "requestBody": {
+                    "description": "User credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "operationId": "c4eddaf1a2e990cc90e4326c0d731d41",
+                "responses": {
+                    "204": {
+                        "description": "User logged out"
+                    }
+                }
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register user",
+                "operationId": "6796c44e1f6079c411abbfed066c5907",
+                "requestBody": {
+                    "description": "User credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User registered"
+                    }
+                }
+            }
+        },
+        "/api/v1/tags": {
+            "post": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Create a new tag",
+                "description": "Display a listing of the resource.",
+                "operationId": "9e21dd3b04a3e4b23f12a3ce0de8c7e5",
+                "requestBody": {
+                    "description": "Tag data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TagRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tag created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get user tasks",
+                "operationId": "4293c00a4cffdb881d9f6c2099875f96",
+                "responses": {
+                    "200": {
+                        "description": "User tasks"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Create a new task",
+                "operationId": "379ae513b47f83882f91f2b9143fc425",
+                "requestBody": {
+                    "description": "Task data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTaskRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Task created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/{task}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get task",
+                "operationId": "e81754f67436bbe6c2fdd21fc7681eef",
+                "responses": {
+                    "200": {
+                        "description": "Task data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Update task",
+                "operationId": "7ca08fc4397f1b44d058d9a8571df4e3",
+                "requestBody": {
+                    "description": "Task data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTaskRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Task updated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Delete task",
+                "operationId": "c02800103c68f71d9c6e1646ac17ee8d",
+                "responses": {
+                    "204": {
+                        "description": "Task deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user",
+                "operationId": "cb9ab8cf21952b4694d0f1c71ffbeb20",
+                "responses": {
+                    "200": {
+                        "description": "User data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/tags": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user tags",
+                "operationId": "21fdc5b6cb0cadb46efa83900f2610f5",
+                "responses": {
+                    "200": {
+                        "description": "User tags"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateTaskRequestBody": {
+                "title": "CreateTaskRequestBody",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "due_date": {
+                        "title": "due_date",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "tag_id": {
+                        "title": "tag_id",
+                        "type": "integer",
+                        "format": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginRequestBody": {
+                "title": "LoginRequestBody",
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "title": "password",
+                        "type": "string",
+                        "format": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequestBody": {
+                "title": "RegisterRequestBody",
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "title": "password",
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "name": {
+                        "title": "name",
+                        "type": "string",
+                        "format": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "TagRequestBody": {
+                "title": "TagRequestBody",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "type": "string",
+                        "format": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization",
+                "description": "Bearer token authentication"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Tags",
+            "description": "Tags"
+        },
+        {
+            "name": "Tasks",
+            "description": "Tasks"
+        },
+        {
+            "name": "User",
+            "description": "User"
+        }
+    ]
+}
